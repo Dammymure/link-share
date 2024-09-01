@@ -13,7 +13,7 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8000/auth/loginuser', {  // Update with your actual API endpoint
+      const response = await fetch('https://link-share-l6eq.onrender.com/auth/loginuser', {  // Update with your actual API endpoint
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

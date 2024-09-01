@@ -88,5 +88,20 @@ export const getUserLinks = async (req, res) => {
     }
 };
 
+export const getUser = async (req, res) => {
+    const user = req.user;
+
+    try {
+        const findUser = await User.findById(user.id);
+        if (!findUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json(findUser);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 
 

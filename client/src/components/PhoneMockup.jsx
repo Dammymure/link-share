@@ -4,12 +4,14 @@ import axios from 'axios';
 
 function PhoneMockup() {
   const [links, setLinks] = useState([]);
+  const [copySuccess, setCopySuccess] = useState(''); // State to manage the copy success message
+
 
   useEffect(() => {
     const fetchLinks = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:8000/profile/getlinks', {
+        const response = await axios.get('https://link-share-l6eq.onrender.com/profile/getlinks', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -24,6 +26,17 @@ function PhoneMockup() {
   
     fetchLinks();
   }, []);
+
+  const copyToClipboard = (url) => {
+    navigator.clipboard.writeText(url)
+        .then(() => {
+            setCopySuccess('Link copied to clipboard!');
+            setTimeout(() => setCopySuccess(''), 2000); // Hide the message after 2 seconds
+        })
+        .catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+};
   
 
 return (
@@ -37,7 +50,7 @@ return (
         links.map((link, index) => (
           <div
             key={index}
-            className='flex items-center justify-between w-48 h-9 rounded-md mb-4 px-3'
+            className='flex items-center justify-between w-48 h-9 rounded-md mb-4 px-3 cursor-pointer'
             style={{
               backgroundColor: link.platform.value === 'git' ? '#1A1A1A' : // GitHub Black
                               link.platform.value === 'youtube' ? '#EE3939' : // YouTube Red
@@ -45,6 +58,7 @@ return (
                               '#000000', // Default Black
               color: '#FFFFFF'
             }}
+            onClick={() => copyToClipboard(link.url)}
           >
             <div className='flex items-center gap-2'>
               <img className='w-4' src={require(`../images/icons/iconwhite/${link.platform.icon}`)} alt={`${link.platform.label} icon`} />
@@ -70,6 +84,11 @@ return (
         ))
       )}
     </div>
+    {copySuccess && (
+                <div className='absolute bottom-5 left-1/2 transform -translate-x-1/2 bg-black text-white px-4 py-2 rounded-md'>
+                    {copySuccess}
+                </div>
+            )}
   </div>
 );
 

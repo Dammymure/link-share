@@ -51,7 +51,7 @@ function AddLinks() {
         return;
       }
 
-      const response = await fetch('http://localhost:8000/profile/addlinks', {  // Update with your actual API endpoint
+      const response = await fetch('https://link-share-l6eq.onrender.com/profile/addlinks', {  // Update with your actual API endpoint
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

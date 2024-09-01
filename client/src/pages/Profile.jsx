@@ -39,7 +39,7 @@ function Profile() {
 
     try {
       const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
-      const response = await axios.put('http://localhost:8000/profile/updateaccount', formData, {
+      const response = await axios.put('https://link-share-l6eq.onrender.com/profile/updateaccount', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${token}`,

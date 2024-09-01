@@ -21,7 +21,7 @@ function CreateAccount() {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/auth/creataccount', {
+      const response = await fetch('https://link-share-l6eq.onrender.com/auth/creataccount', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

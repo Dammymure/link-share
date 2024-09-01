@@ -18,9 +18,13 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+
 app.use("/auth", authRoutes)
 app.use("/profile", userRoutes)
 
+// Serve the uploads folder as a static directory
+const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 
 /* MONGOOSE SETUP */
